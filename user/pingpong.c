@@ -18,7 +18,6 @@ int main(int argc,char* argv[]){
         close(p1[1]);
         //等待子进程结束
         wait((int *) 0);
-        close(p1[1]);
         //从第二个管道中读pong
         read(p2[0], buff2, sizeof buff2);
         printf("%d: received %s\n", getpid(), buff2);
