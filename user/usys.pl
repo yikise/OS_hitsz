@@ -37,3 +37,5 @@ entry("sbrk");
 entry("sleep");
 entry("uptime");
 entry("rename");
+# 添加yield
+entry("yield");
