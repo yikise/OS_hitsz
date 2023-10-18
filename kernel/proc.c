@@ -283,7 +283,7 @@ void reparent(struct proc *p) {
       // because only the parent changes it, and we're the parent.
       //输出子进程的信息
       char statewords[5][10] = {"UNUSED", "SLEEPING", "RUNNABLE", "RUNNING", "ZOMBIE"};
-      exit_info("proc %d exit, child %d, pid %d, name child%d, state %s\n", p->pid, i, i, statewords[pp->state]);
+      exit_info("proc %d exit, child %d, pid %d, name child%d, state %s\n", p->pid, i, pp->pid, i, statewords[pp->state]);
       i++;
       acquire(&pp->lock);
       pp->parent = initproc;
