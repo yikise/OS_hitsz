@@ -29,10 +29,10 @@ kinit()
 {
   for(int i = 0; i < NCPU; i++) {
     //使锁名字以kmem开头
-    char name[10];
-    snprintf(name, sizeof(name), "kmem%d", i);
+    // char name[10];
+    // snprintf(name, sizeof(name), "kmem%d", i);
     //初始化锁
-    initlock(&kmems[i].lock, name);
+    initlock(&kmems[i].lock, "kmem*");
   }
   freerange(end, (void*)PHYSTOP);
 }
