@@ -80,6 +80,18 @@ bget(uint dev, uint blockno)
     }
   }
 
+  for(b = bcache.hashbucket[hashNumber].prev; b != &bcache.hashbucket[hashNumber]; b = b->prev) {
+    if(b->refcnt == 0) {
+      b->dev = dev;
+      b->blockno = blockno;
+      b->valid = 0;
+      b->refcnt = 1;
+      release(&bcache.lock[hashNumber]);
+      acquiresleep(&b->lock);
+      return b;
+    }
+  }
+
   // Not cached.
   
   //首先释放原先哈希桶的锁
