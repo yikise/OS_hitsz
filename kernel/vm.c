@@ -379,3 +379,60 @@ int test_pagetable() {
   printf("test_pagetable: %d\n", satp != gsatp);
   return satp != gsatp;
 }
+
+// 加入 页表打印功能
+
+void vmgrandchildprint(pagetable_t pgtbl, uint64 L1, uint64 L2)
+{
+  // 遍历页表项
+  for(int i = 0; i < 512; i++) {
+    pte_t pte = pgtbl[i]; //获取第i条PTE
+    // /* 判断PTE的Flag位，若虚拟地址有映射到物理地址，则进行打印
+    if(pte & PTE_V){ 
+      // this PTE points to a lower-level page table.
+      uint64 pa = PTE2PA(pte); // 将PTE转为为物理地址
+      uint64 va = (pa & 0xFFF) + (L1 << 30) + (L2 << 21) + (i << 12);
+      printf("||   ||   ||idx: %d: va: %p -> pa: %p, flags: ", i, va, pa);
+      (pte & PTE_R) ? printf("r") : printf("-");
+      (pte & PTE_W) ? printf("w") : printf("-");
+      (pte & PTE_X) ? printf("x") : printf("-");
+      (pte & PTE_U) ? printf("u") : printf("-");
+      printf("\n");
+    }
+  } 
+}
+
+void vmchildprint(pagetable_t pgtbl, uint64 L1)
+{
+  // 遍历页表项
+ for(int i = 0; i < 512; i++) {
+    pte_t pte = pgtbl[i]; //获取第i条PTE 
+
+    /* 判断PTE的Flag位，如果还有下一级页表(即当前是次页表)，
+       则调用vmgrandchildprint打印 */
+    if(pte & PTE_V){ 
+      // this PTE points to a lower-level page table.
+      uint64 grandchild = PTE2PA(pte); // 将PTE转为为物理地址
+      printf("||   ||idx: %d: pa: %p, flags: ----\n", i, grandchild);
+      vmgrandchildprint((pagetable_t)grandchild, L1, (uint64)i); // 调用vmchildprint
+    }
+  }
+}
+void vmprint(pagetable_t pgtbl)
+{
+  // 打印 vmprint 的参数，即获得的页表参数具体的值
+  printf("page table %p\n", pgtbl);
+  // 遍历页表项
+  for(int i = 0; i < 512; i++) {
+    pte_t pte = pgtbl[i]; //获取第i条PTE 
+
+    /* 判断PTE的Flag位，如果还有下一级页表(即当前是根页表)，
+       则调用vmchildprint打印 */
+    if(pte & PTE_V){ 
+      // this PTE points to a lower-level page table.
+      uint64 child = PTE2PA(pte); // 将PTE转为为物理地址
+      printf("||idx: %d: pa: %p, flags: ----\n", i, child);
+      vmchildprint((pagetable_t)child, (uint64)i); // 调用vmchildprint
+    }
+  }
+}
