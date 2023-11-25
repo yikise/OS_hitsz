@@ -98,6 +98,11 @@ int exec(char *path, char **argv) {
   proc_freepagetable(oldpagetable, oldsz);
   // 在第一个进程启动时打印页表信息
   if(p->pid == 1) vmprint(p->pagetable);
+  // 修改独立内核页表
+  //删除旧的映射并将新页面映射到内核页表
+  uvmunmap(p->k_pagetable, 0, PGROUNDUP(oldsz)/PGSIZE, 0);
+  if(sync_pagetable(p->pagetable, p->k_pagetable, 0, p->sz) < 0)
+   goto bad;
   return argc;  // this ends up in a0, the first argument to main(argc, argv)
 
 bad:
