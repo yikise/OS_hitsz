@@ -96,7 +96,7 @@ int sync_pagetable(pagetable_t uvm, pagetable_t kvm, uint64 old_sz, uint64 new_s
   // 清除PTE_U的标记位
   pa = PTE2PA(*pte);
   flags = PTE_FLAGS(*pte);
-  if(mappages(kvm, i, PGSIZE, pa, flags&(~PTE_U)) != 0){ //调用proc_mappages完成映射,并保存相关信息
+  if(mappages(kvm, i, PGSIZE, pa, flags&(~PTE_U)) != 0){ //调用sync_pagetable完成映射,并保存相关信息
    return -1;
   }
  }
