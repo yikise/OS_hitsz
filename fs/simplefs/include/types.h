@@ -54,13 +54,13 @@ typedef enum sfs_file_type {
 #define SFS_DISK_SZ()                   (sfs_super.sz_disk)
 #define SFS_DRIVER()                    (sfs_super.driver_fd)
 
-#define SFS_ROUND_DOWN(value, round)    (value % round == 0 ? value : (value / round) * round)
-#define SFS_ROUND_UP(value, round)      (value % round == 0 ? value : (value / round + 1) * round)
+#define SFS_ROUND_DOWN(value, round)    ((value) % (round) == 0 ? (value) : ((value) / (round)) * (round))
+#define SFS_ROUND_UP(value, round)      ((value) % (round) == 0 ? (value) : ((value) / (round) + 1) * (round))
 
-#define SFS_BLKS_SZ(blks)               (blks * SFS_IO_SZ())
+#define SFS_BLKS_SZ(blks)               ((blks) * SFS_IO_SZ())
 #define SFS_ASSIGN_FNAME(psfs_dentry, _fname)\ 
                                         memcpy(psfs_dentry->fname, _fname, strlen(_fname))
-#define SFS_INO_OFS(ino)                (sfs_super.data_offset + ino * SFS_BLKS_SZ((\
+#define SFS_INO_OFS(ino)                (sfs_super.data_offset + (ino) * SFS_BLKS_SZ((\
                                         SFS_INODE_PER_FILE + SFS_DATA_PER_FILE)))
 #define SFS_DATA_OFS(ino)               (SFS_INO_OFS(ino) + SFS_BLKS_SZ(SFS_INODE_PER_FILE))
 
@@ -136,20 +136,20 @@ static inline struct sfs_dentry* new_dentry(char * fname, SFS_FILE_TYPE ftype) {
 struct sfs_super_d
 {
     uint32_t           magic_num;
-    int                sz_usage;
+    uint32_t           sz_usage;
     
-    int                max_ino;
-    int                map_inode_blks;
-    int                map_inode_offset;
-    int                data_offset;
+    uint32_t           max_ino;
+    uint32_t           map_inode_blks;
+    uint32_t           map_inode_offset;
+    uint32_t           data_offset;
 };
 
 struct sfs_inode_d
 {
-    int                ino;                           /* 在inode位图中的下标 */
-    int                size;                          /* 文件已占用空间 */
+    uint32_t           ino;                           /* 在inode位图中的下标 */
+    uint32_t           size;                          /* 文件已占用空间 */
     char               target_path[SFS_MAX_FILE_NAME];/* store traget path when it is a symlink */
-    int                dir_cnt;
+    uint32_t           dir_cnt;
     SFS_FILE_TYPE      ftype;   
 };  
 
@@ -157,7 +157,7 @@ struct sfs_dentry_d
 {
     char               fname[SFS_MAX_FILE_NAME];
     SFS_FILE_TYPE      ftype;
-    int                ino;                           /* 指向的ino号 */
+    uint32_t           ino;                           /* 指向的ino号 */
 };  
 
 

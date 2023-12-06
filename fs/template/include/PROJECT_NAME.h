@@ -12,6 +12,7 @@
 #include "ddriver.h"
 #include "errno.h"
 #include "types.h"
+#include "stdint.h"
 
 #define PROJECT_NAME^^_MAGIC                  /* TODO: Define by yourself */
 #define PROJECT_NAME^^_DEFAULT_PERM    0777   /* 全权限打开 */

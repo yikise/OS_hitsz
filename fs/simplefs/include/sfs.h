@@ -12,6 +12,7 @@
 #include "ddriver.h"
 #include "errno.h"
 #include "types.h"
+#include "stdint.h"
 
 
 /******************************************************************************

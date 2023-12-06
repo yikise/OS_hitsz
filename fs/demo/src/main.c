@@ -2,11 +2,13 @@
 #define _XOPEN_SOURCE 700
 
 #define FUSE_USE_VERSION 26
-#include <stdio.h>
-#include <fuse.h>
+#include "stdio.h"
+#include "fuse.h"
 #include "../include/ddriver.h"
 #include <linux/fs.h>
-#include <pwd.h>
+#include "pwd.h"
+#include "unistd.h"
+#include "string.h"
 
 #define DEMO_DEFAULT_PERM        0777
 
@@ -32,7 +34,7 @@ struct demo_super super;
 #define DEVICE_NAME "ddriver"
 
 /* 挂载文件系统 */
-static int demo_mount(struct fuse_conn_info * conn_info){
+static void* demo_mount(struct fuse_conn_info * conn_info){
     // 打开驱动
     char device_path[128] = {0};
     sprintf(device_path, "%s/" DEVICE_NAME, getpwuid(getuid())->pw_dir);
@@ -50,7 +52,7 @@ static int demo_mount(struct fuse_conn_info * conn_info){
 }
 
 /* 卸载文件系统 */
-static int demo_umount(void* p){
+static void demo_umount(void* p){
     // 关闭驱动
     ddriver_close(super.driver_fd);
 }
@@ -98,7 +100,7 @@ int main(int argc, char *argv[])
 {
     int ret = 0;
     struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
-
-    ret = fuse_main(argc, argv, &ops, NULL);
+    ret = fuse_main(args.argc, args.argv, &ops, NULL);
+    fuse_opt_free_args(&args);
     return ret;
 }
