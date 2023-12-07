@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/yikise/user-land-filesystem/fs/simplefs/build",
+  "command": "/usr/bin/gcc  -I/home/yikise/user-land-filesystem/fs/simplefs/./include   -D_FILE_OFFSET_BITS=64 -no-pie -g -Wall --pedantic -g   -o CMakeFiles/sfs-fuse.dir/src/sfs.c.o   -c /home/yikise/user-land-filesystem/fs/simplefs/src/sfs.c",
+  "file": "/home/yikise/user-land-filesystem/fs/simplefs/src/sfs.c"
+},
+{
+  "directory": "/home/yikise/user-land-filesystem/fs/simplefs/build",
+  "command": "/usr/bin/gcc  -I/home/yikise/user-land-filesystem/fs/simplefs/./include   -D_FILE_OFFSET_BITS=64 -no-pie -g -Wall --pedantic -g   -o CMakeFiles/sfs-fuse.dir/src/sfs_debug.c.o   -c /home/yikise/user-land-filesystem/fs/simplefs/src/sfs_debug.c",
+  "file": "/home/yikise/user-land-filesystem/fs/simplefs/src/sfs_debug.c"
+},
+{
+  "directory": "/home/yikise/user-land-filesystem/fs/simplefs/build",
+  "command": "/usr/bin/gcc  -I/home/yikise/user-land-filesystem/fs/simplefs/./include   -D_FILE_OFFSET_BITS=64 -no-pie -g -Wall --pedantic -g   -o CMakeFiles/sfs-fuse.dir/src/sfs_utils.c.o   -c /home/yikise/user-land-filesystem/fs/simplefs/src/sfs_utils.c",
+  "file": "/home/yikise/user-land-filesystem/fs/simplefs/src/sfs_utils.c"
+}
+]

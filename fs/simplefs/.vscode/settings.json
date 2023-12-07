@@ -11,6 +11,7 @@
         "ddriver_ctl_user.h": "c",
         "errno.h": "c",
         "fuse.h": "c",
-        "ddriver.h": "c"
+        "ddriver.h": "c",
+        "type_traits": "c"
     }
 }

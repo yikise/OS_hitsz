@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yikise/user-land-filesystem/fs/demo/include/ddriver.h
+ddriver_ctl_user.h
+/home/yikise/user-land-filesystem/fs/demo/include/ddriver_ctl_user.h
+stdio.h
+/home/yikise/user-land-filesystem/fs/demo/include/stdio.h
+
+/home/yikise/user-land-filesystem/fs/demo/include/ddriver_ctl_user.h
+sys/ioctl.h
+-
+
+/home/yikise/user-land-filesystem/fs/demo/src/main.c
+stdio.h
+-
+fuse.h
+-
+../include/ddriver.h
+/home/yikise/user-land-filesystem/fs/demo/include/ddriver.h
+linux/fs.h
+-
+pwd.h
+-
+
